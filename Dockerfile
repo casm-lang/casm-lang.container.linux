@@ -21,20 +21,20 @@
 #   along with docker-cpp. If not, see <http://www.gnu.org/licenses/>.
 #
 
-FROM alpine
+FROM yantis/archlinux-tiny
 
-RUN apk update
+RUN pacman -Sy
 
-RUN apk upgrade
-
-RUN apk add \
+RUN pacman \
+    --noconfirm \
+    -S \
     bash \
     curl \
     git \
     make \
     cmake \
     gcc \
-    g++ \
+    clang \
     flex \
     bison \
     linux-headers
