@@ -24,16 +24,17 @@
 FROM alpine
 
 RUN apk update
-RUN apk upgrade
-RUN apk add \
-    bash
-    curl
-    git
-    make
-    cmake
-    gcc
-    g++
-    flex
-    bison
-    linux-headers
 
+RUN apk upgrade
+
+RUN apk add \
+    bash \
+    curl \
+    git \
+    make \
+    cmake \
+    gcc \
+    g++ \
+    flex \
+    bison \
+    linux-headers
