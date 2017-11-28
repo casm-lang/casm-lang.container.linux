@@ -46,7 +46,22 @@ RUN apt -y update && \
 
 
 # GCC
-
+RUN GCC_REV=http://ftp.gnu.org/gnu/gcc/gcc-7.2.0/gcc-7.2.0.tar.xz && \
+    wget   -O /tmp/gcc.tar.xz ${GCC_REV} && \
+    mkdir     /tmp/gcc && \
+    tar -vxJf /tmp/gcc.tar.xz --strip-components=1 -C /tmp/gcc && \
+    cd        /tmp/gcc && \
+    ./contrib/download_prerequisites && \
+    cd        .. && \
+    mkdir     gcc-build && \
+    cd        gcc-build && \
+    ../gcc/configure --enable-languages=c,c++ && \
+    make && \
+    make install && \
+    cd        /tmp && \
+    rm   -vrf /tmp/gcc* && \
+    gcc --version && \
+    g++ --version
 
 
 # CLANG
