@@ -69,7 +69,11 @@ RUN GCC_REV=http://ftp.gnu.org/gnu/gcc/gcc-7.2.0/gcc-7.2.0.tar.xz && \
 
 
 # CLANG
-
+RUN CLANG_REV=http://releases.llvm.org/5.0.0/clang+llvm-5.0.0-linux-x86_64-ubuntu16.04.tar.xz && \
+    wget   -O /tmp/clang.tar.xz ${CLANG_REV} && \
+    tar -vxJf /tmp/clang.tar.xz --strip-components=1 -C /usr/local && \
+    rm    -vf /tmp/clang.tar.xz && \
+    clang --version
 
 
 CMD ["/bin/bash"]
