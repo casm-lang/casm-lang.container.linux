@@ -37,7 +37,8 @@ RUN apt -y update && \
     bison \
     flex \
     gcc \
-    g++
+    g++ \
+    clang
 
 # RUN CMAKE_REV=http://cmake.org/files/v3.7/cmake-3.7.2-Linux-x86_64.tar.gz && \
 #     wget   -O /tmp/clang.tar.gz ${CMAKE_REV} && \
