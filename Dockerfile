@@ -42,7 +42,11 @@ RUN apt -y update && \
 
 
 # CMAKE
-
+RUN CMAKE_REV=http://cmake.org/files/v3.7/cmake-3.7.2-Linux-x86_64.tar.gz && \
+    wget   -O /tmp/clang.tar.gz ${CMAKE_REV} && \
+    tar -vxaf /tmp/clang.tar.gz --strip-components=1 -C /usr/local && \
+    rm    -vf /tmp/clang.tar.gz && \
+    cmake --version
 
 
 # GCC
