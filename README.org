@@ -23,7 +23,15 @@
 
 * docker-cpp: C++ Build Environment Docker Container Image
 
-TBD
+Provides a =Dockerfile= which creates a C++ build environment with 
+different GNU =gcc= and LLVM =clang= C++ compiler versions and several other tools.
+There exists an automated build process hosted and located at https://hub.docker.com/ppaulweber/docker-cpp.
+The =master= branch equals the =:latest= docker image tag.
+Furthermore, there exists a tool =base= branch (and docker image tag) 
+which covers some generic tools like =cmake=.
+For every GNU =gcc= and LLVM =clang= version exists an explicit branch (and docker image tag).
+The latest version of all sub-branches are merged together into the master branch. 
+As base docker image we currently used Ubuntu 16.04. 
 
 
 ** Copyright and License
