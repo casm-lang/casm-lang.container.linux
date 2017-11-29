@@ -34,6 +34,7 @@ RUN apt -y update && \
     wget \
     bzip2 \
     xz-utils \
+    build-essential \
     bison \
     flex \
     gcc \
@@ -42,7 +43,11 @@ RUN apt -y update && \
 
 
 # CMAKE
-
+RUN CMAKE_REV=http://cmake.org/files/v3.7/cmake-3.7.2-Linux-x86_64.tar.gz && \
+    wget  -qO /tmp/clang.tar.gz ${CMAKE_REV} && \
+    tar  -xaf /tmp/clang.tar.gz --strip-components=1 -C /usr/local && \
+    rm     -f /tmp/clang.tar.gz && \
+    cmake --version
 
 
 # GCC
