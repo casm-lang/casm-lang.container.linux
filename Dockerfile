@@ -52,9 +52,9 @@ RUN CMAKE_REV=http://cmake.org/files/v3.7/cmake-3.7.2-Linux-x86_64.tar.gz && \
 
 # GCC
 RUN GCC_REV=http://ftp.gnu.org/gnu/gcc/gcc-7.2.0/gcc-7.2.0.tar.xz && \
-    wget   -O /tmp/gcc.tar.xz ${GCC_REV} && \
+    wget  -qO /tmp/gcc.tar.xz ${GCC_REV} && \
     mkdir     /tmp/gcc && \
-    tar -vxJf /tmp/gcc.tar.xz --strip-components=1 -C /tmp/gcc && \
+    tar  -xJf /tmp/gcc.tar.xz --strip-components=1 -C /tmp/gcc && \
     cd        /tmp/gcc && \
     ./contrib/download_prerequisites && \
     cd        .. && \
@@ -64,7 +64,7 @@ RUN GCC_REV=http://ftp.gnu.org/gnu/gcc/gcc-7.2.0/gcc-7.2.0.tar.xz && \
     make && \
     make install && \
     cd        /tmp && \
-    rm   -vrf /tmp/gcc* && \
+    rm    -rf /tmp/gcc* && \
     gcc --version && \
     g++ --version
 
