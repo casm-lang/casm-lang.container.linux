@@ -50,23 +50,23 @@ RUN CMAKE_REV=http://cmake.org/files/v3.7/cmake-3.7.2-Linux-x86_64.tar.gz && \
     cmake --version
 
 
-# GCC
-RUN GCC_REV=http://ftp.gnu.org/gnu/gcc/gcc-7.2.0/gcc-7.2.0.tar.xz && \
-    wget  -qO /tmp/gcc.tar.xz ${GCC_REV} && \
-    mkdir     /tmp/gcc && \
-    tar  -xJf /tmp/gcc.tar.xz --strip-components=1 -C /tmp/gcc && \
-    cd        /tmp/gcc && \
-    ./contrib/download_prerequisites && \
-    cd        .. && \
-    mkdir     gcc-build && \
-    cd        gcc-build && \
-    ../gcc/configure --enable-languages=c,c++ && \
-    make && \
-    make install && \
-    cd        /tmp && \
-    rm    -rf /tmp/gcc* && \
-    gcc --version && \
-    g++ --version
+# # GCC
+# RUN GCC_REV=http://ftp.gnu.org/gnu/gcc/gcc-7.2.0/gcc-7.2.0.tar.xz && \
+#     wget  -qO /tmp/gcc.tar.xz ${GCC_REV} && \
+#     mkdir     /tmp/gcc && \
+#     tar  -xJf /tmp/gcc.tar.xz --strip-components=1 -C /tmp/gcc && \
+#     cd        /tmp/gcc && \
+#     ./contrib/download_prerequisites && \
+#     cd        .. && \
+#     mkdir     gcc-build && \
+#     cd        gcc-build && \
+#     ../gcc/configure --enable-languages=c,c++ && \
+#     make && \
+#     make install && \
+#     cd        /tmp && \
+#     rm    -rf /tmp/gcc* && \
+#     gcc --version && \
+#     g++ --version
 
 
 # CLANG
