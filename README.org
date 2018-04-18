@@ -1,9 +1,9 @@
 # 
-#   Copyright (c) 2017 Philipp Paulweber
+#   Copyright (C) 2017-2018 Philipp Paulweber
 #   All rights reserved.
 # 
 #   Developed by: Philipp Paulweber
-#                 https://github.com/ppaulweber/docker-cpp
+#                 <https://github.com/ppaulweber/docker-cpp>
 # 
 #   This file is part of docker-cpp.
 # 
@@ -30,8 +30,7 @@ The =master= branch equals the =:latest= docker image tag.
 Furthermore, there exists a tool =base= branch (and docker image tag) 
 which covers some generic tools like =cmake=.
 For every GNU =gcc= and LLVM =clang= version exists an explicit branch (and docker image tag).
-The latest version of all sub-branches are merged together into the master branch. 
-As base docker image we currently used Ubuntu 16.04. 
+The latest version of all sub-branches are merged together into the =master= branch. 
 
 
 ** Copyright and License
@@ -45,11 +44,11 @@ docker-cpp is a [[https://www.gnu.org/licenses/gpl-3.0.html][GNU GPLv3+]].
 
 #+begin_src
 
-Copyright (c) 2017 Philipp Paulweber
+Copyright (C) 2017-2018 Philipp Paulweber
 All rights reserved.
 
 Developed by: Philipp Paulweber
-              https://github.com/ppaulweber/docker-cpp
+              <https://github.com/ppaulweber/docker-cpp>
 
 This file is part of docker-cpp.
 

@@ -1,9 +1,9 @@
 #
-#   Copyright (c) 2017 Philipp Paulweber
+#   Copyright (C) 2017-2018 Philipp Paulweber
 #   All rights reserved.
 #
 #   Developed by: Philipp Paulweber
-#                 https://github.com/ppaulweber/docker-cpp
+#                 <https://github.com/ppaulweber/docker-cpp>
 #
 #   This file is part of docker-cpp.
 #
@@ -21,35 +21,39 @@
 #   along with docker-cpp. If not, see <http://www.gnu.org/licenses/>.
 #
 
-FROM ubuntu:16.04
+FROM greyltc/archlinux
 
-RUN apt -y update && \
-    apt -y upgrade && \
-    apt -y install \
+RUN pacman --noconfirm -Syu  && \
+    pacman --noconfirm -S \
+    openssh \
     git \
     bash \
     make \
     cmake \
     curl \
     wget \
-    bzip2 \
-    xz-utils \
-    build-essential \
+    tar \
     bison \
     flex \
     gcc \
-    g++ \
     clang
 
-RUN mkdir -p /root/.ssh && echo "StrictHostKeyChecking no " > /root/.ssh/config
+RUN mkdir -p ~/.ssh && \
+    ssh-keyscan github.com >> ~/.ssh/known_hosts
 
-# CMAKE
-RUN CMAKE_REV=http://cmake.org/files/v3.7/cmake-3.7.2-Linux-x86_64.tar.gz && \
-    wget  -qO /tmp/clang.tar.gz ${CMAKE_REV} && \
-    tar  -xaf /tmp/clang.tar.gz --strip-components=1 -C /usr/local && \
-    rm     -f /tmp/clang.tar.gz && \
-    cmake --version
+# # CMAKE
+# RUN CMAKE_REV=http://cmake.org/files/v3.7/cmake-3.7.2-Linux-x86_64.tar.gz && \
+#     wget  -qO /tmp/cmake.tar.gz --no-check-certificate ${CMAKE_REV} && \
+#     tar  -xaf /tmp/cmake.tar.gz --strip-components=1 -C /usr && \
+#     rm     -f /tmp/cmake.tar.gz && \
+#     cmake --version
 
+# # CLANG
+# RUN CLANG_REV=http://releases.llvm.org/5.0.0/clang+llvm-5.0.0-linux-x86_64-ubuntu16.04.tar.xz && \
+#     wget  -qO /tmp/clang.tar.xz --no-check-certificate ${CLANG_REV} && \
+#     tar  -xJf /tmp/clang.tar.xz --strip-components=1 -C /usr && \
+#     rm     -f /tmp/clang.tar.xz && \
+#     clang --version
 
 # # GCC
 # RUN GCC_REV=http://ftp.gnu.org/gnu/gcc/gcc-7.2.0/gcc-7.2.0.tar.xz && \
@@ -69,13 +73,12 @@ RUN CMAKE_REV=http://cmake.org/files/v3.7/cmake-3.7.2-Linux-x86_64.tar.gz && \
 #     gcc --version && \
 #     g++ --version
 
-
-# CLANG
-RUN CLANG_REV=http://releases.llvm.org/5.0.0/clang+llvm-5.0.0-linux-x86_64-ubuntu16.04.tar.xz && \
-    wget  -qO /tmp/clang.tar.xz ${CLANG_REV} && \
-    tar  -xJf /tmp/clang.tar.xz --strip-components=1 -C /usr/local && \
-    rm     -f /tmp/clang.tar.xz && \
+RUN bash  --version && \
+    make  --version && \
+    cmake --version && \
+    flex  --version && \
+    bison --version && \
+    gcc   --version && \
     clang --version
-
 
 CMD ["/bin/bash"]
