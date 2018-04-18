@@ -41,6 +41,7 @@ RUN apt -y update && \
     g++ \
     clang
 
+RUN mkdir -p /root/.ssh && echo "StrictHostKeyChecking no " > /root/.ssh/config
 
 # CMAKE
 RUN CMAKE_REV=http://cmake.org/files/v3.7/cmake-3.7.2-Linux-x86_64.tar.gz && \
