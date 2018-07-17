@@ -25,11 +25,12 @@ FROM greyltc/archlinux
 
 RUN pacman --noconfirm -Syu  && \
     pacman --noconfirm -S \
-    openssh \
-    git \
     bash \
+    git \
     make \
     cmake \
+    python \
+    openssh \
     curl \
     wget \
     tar \
@@ -73,12 +74,18 @@ RUN mkdir -p ~/.ssh && \
 #     gcc --version && \
 #     g++ --version
 
-RUN bash  --version && \
-    make  --version && \
-    cmake --version && \
-    flex  --version && \
-    bison --version && \
-    gcc   --version && \
-    clang --version
+RUN bash   --version && \
+    git    --version && \
+    make   --version && \
+    cmake  --version && \
+    python --version && \
+    ssh    -V        && \
+    curl   --version && \
+    wget   --version && \
+    tar    --version && \
+    bison  --version && \
+    flex   --version && \
+    gcc    --version && \
+    clang  --version
 
 CMD ["/bin/bash"]
