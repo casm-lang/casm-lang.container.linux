@@ -31,6 +31,7 @@ RUN pacman --noconfirm -Syu  && \
     cmake \
     python \
     openssh \
+    openmp \
     curl \
     wget \
     tar \
