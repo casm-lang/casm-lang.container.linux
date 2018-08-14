@@ -21,72 +21,37 @@
 #   along with docker-cpp. If not, see <http://www.gnu.org/licenses/>.
 #
 
-FROM greyltc/archlinux
+FROM pritunl/archlinux
 
-RUN pacman --noconfirm -Syu  && \
-    pacman --noconfirm -S \
+RUN pacman --noconfirm -Sy && \
+    pacman --noconfirm -S  \
     bash \
     git \
     make \
     cmake \
-    python \
     openssh \
-    openmp \
     curl \
     wget \
-    tar \
-    bison \
-    flex \
-    gcc \
-    clang
+    tar
 
 RUN mkdir -p ~/.ssh && \
     ssh-keyscan github.com >> ~/.ssh/known_hosts
 
-# # CMAKE
-# RUN CMAKE_REV=http://cmake.org/files/v3.7/cmake-3.7.2-Linux-x86_64.tar.gz && \
-#     wget  -qO /tmp/cmake.tar.gz --no-check-certificate ${CMAKE_REV} && \
-#     tar  -xaf /tmp/cmake.tar.gz --strip-components=1 -C /usr && \
-#     rm     -f /tmp/cmake.tar.gz && \
-#     cmake --version
+RUN pacman --noconfirm -S \
+    python
 
-# # CLANG
-# RUN CLANG_REV=http://releases.llvm.org/5.0.0/clang+llvm-5.0.0-linux-x86_64-ubuntu16.04.tar.xz && \
-#     wget  -qO /tmp/clang.tar.xz --no-check-certificate ${CLANG_REV} && \
-#     tar  -xJf /tmp/clang.tar.xz --strip-components=1 -C /usr && \
-#     rm     -f /tmp/clang.tar.xz && \
-#     clang --version
+RUN pacman --noconfirm -S \
+    bison \
+    flex
 
-# # GCC
-# RUN GCC_REV=http://ftp.gnu.org/gnu/gcc/gcc-7.2.0/gcc-7.2.0.tar.xz && \
-#     wget  -qO /tmp/gcc.tar.xz ${GCC_REV} && \
-#     mkdir     /tmp/gcc && \
-#     tar  -xJf /tmp/gcc.tar.xz --strip-components=1 -C /tmp/gcc && \
-#     cd        /tmp/gcc && \
-#     ./contrib/download_prerequisites && \
-#     cd        .. && \
-#     mkdir     gcc-build && \
-#     cd        gcc-build && \
-#     ../gcc/configure --enable-languages=c,c++ && \
-#     make && \
-#     make install && \
-#     cd        /tmp && \
-#     rm    -rf /tmp/gcc* && \
-#     gcc --version && \
-#     g++ --version
+RUN pacman --noconfirm -S \
+    gcc
 
-RUN bash   --version && \
-    git    --version && \
-    make   --version && \
-    cmake  --version && \
-    python --version && \
-    ssh    -V        && \
-    curl   --version && \
-    wget   --version && \
-    tar    --version && \
-    bison  --version && \
-    flex   --version && \
-    gcc    --version && \
-    clang  --version
+RUN pacman --noconfirm -S \
+    clang \
+    openmp
+
+RUN pacman --noconfirm -S \
+    emscripten
 
 CMD ["/bin/bash"]
