@@ -24,7 +24,7 @@
 
 #+options: toc:nil
 
-* Linux Docker Container C++ Build Environment
+* Linux C++ Build Environment
 
 Provides a =Dockerfile= which creates a C++ build environment for Linux,
 which is pushed after a successful build automatically to 
