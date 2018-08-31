@@ -22,7 +22,13 @@
 #
 
 docker_builder:
-  name: build
+  name: build and deploy
   only_if: $CIRRUS_BRANCH == 'master'
+  env:
+    DOCKER_TAG: casmlang/container.linux
+    DOCKER_USERNAME: ENCRYPTED[bb7ed0c753ea1c01293c90b9c7a1532f656c8f4c62ba90f6b3ab8db4bb1a6ab057d2d9db7ab746c39e6059dee2274abf]
+    DOCKER_PASSWORD: ENCRYPTED[c7740614313448b8bb5a0ab298d44cfa20ff1f7dbe3c4d38bf1915637c9aade8737975b041dc61b6e0ed52051df736c1]
   build_script:
-    - docker build .
+    - .ci\script.sh build
+  deploy_script:
+    - .ci\script.sh deploy

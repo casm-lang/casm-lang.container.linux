@@ -33,7 +33,7 @@ https://hub.docker.com/r/casmlang/container.linux.
 ** Status [[https://cirrus-ci.com/github/casm-lang/casm-lang.container.linux][https://api.cirrus-ci.com/github/casm-lang/casm-lang.container.linux.svg]]
 
 The docker container provides a C++ development environment with the following tools:
- =sh=, =bash=, =make=, =cmake=, =flex=, =bison, =gcc=, =clang=, and =emcc=.
+ =sh=, =bash=, =make=, =cmake=, =flex=, =bison=, =gcc=, =clang=, and =emcc=.
 
 ** Copyright and License
 
