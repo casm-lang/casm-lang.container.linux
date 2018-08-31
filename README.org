@@ -20,18 +20,20 @@
 #   You should have received a copy of the GNU General Public License
 #   along with casm-lang.container.linux. If not, see <http://www.gnu.org/licenses/>.
 # 
+[[https://github.com/casm-lang/casm-lang.logo/raw/master/etc/headline.png]]
+
+#+options: toc:nil
 
 * Linux Docker Container C++ Build Environment
 
-Provides a =Dockerfile= which creates a C++ build environment with 
-different GNU =gcc= and LLVM =clang= C++ compiler versions and several other tools.
-There exists an automated build process hosted and located at https://hub.docker.com/ppaulweber/docker-cpp.
-The =master= branch equals the =:latest= docker image tag.
-Furthermore, there exists a tool =base= branch (and docker image tag) 
-which covers some generic tools like =cmake=.
-For every GNU =gcc= and LLVM =clang= version exists an explicit branch (and docker image tag).
-The latest version of all sub-branches are merged together into the =master= branch.
+Provides a =Dockerfile= which creates a C++ build environment for Linux,
+which is pushed after a successful build automatically to 
+https://hub.docker.com/r/casmlang/container.linux.
 
+** Status [[https://cirrus-ci.com/github/casm-lang/casm-lang.container.linux][https://api.cirrus-ci.com/github/casm-lang/casm-lang.container.linux.svg]]
+
+The docker container provides a C++ development environment with the following tools:
+ =sh=, =bash=, =make=, =cmake=, =flex=, =bison, =gcc=, =clang=, and =emcc=.
 
 ** Copyright and License
 
