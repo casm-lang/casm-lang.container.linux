@@ -30,7 +30,7 @@ Provides a =Dockerfile= which creates a C++ build environment for Linux,
 which is pushed after a successful build automatically to 
 https://hub.docker.com/r/casmlang/container.linux.
 
-** Status [[https://cirrus-ci.com/github/casm-lang/casm-lang.container.linux][https://api.cirrus-ci.com/github/casm-lang/casm-lang.container.linux.svg]]
+** Status [[https://github.com/casm-lang/casm-lang.container.linux/actions][https://github.com/casm-lang/casm-lang.container.linux/workflows/build/badge.svg]]
 
 The docker container provides a C++ development environment with the following tools:
  =sh=, =bash=, =make=, =cmake=, =flex=, =bison=, =gcc=, =clang=, and =emcc=.
