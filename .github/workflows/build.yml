@@ -27,7 +27,7 @@ name: build
 on: [push]
 
 jobs:
-  build-and-deploy:
+  docker:
     strategy:
       matrix:
         os: [ ubuntu-latest ]
@@ -37,7 +37,7 @@ jobs:
     - name: Building
       run:  |
         make build
-    - name: Tests
+    - name: Deploying
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSOWRD: ${{ secrets.DOCKER_PASSWORD }}
