@@ -38,5 +38,5 @@ run:
 deploy:
 	@echo "docker: logout, login and push '${TAG}'"
 	@docker logout
-	@docker login --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
+	@echo "${DOCKER_PASSWORD}" | docker login --username ${DOCKER_USERNAME} --password-stdin
 	@docker push ${TAG}
