@@ -30,7 +30,7 @@ endif
 
 ifdef GITHUB_WORKFLOW
   # https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables
-  BRANCH := $(shell echo $(GITHUB_REF) | sed "s/ref\/heads\///g" | sed "s/\//-/g")
+  BRANCH := $(shell echo $(GITHUB_REF) | sed "s/refs\/heads\///g" | sed "s/\//-/g")
 endif
 
 ifneq (${BRANCH},)
