@@ -21,19 +21,23 @@
 #   along with casm-lang.container.linux. If not, see <http://www.gnu.org/licenses/>.
 #
 
-TARGET = casmlang/container.linux
+TARGET := casmlang/container.linux
 
-DOCKER_TAG = $(shell git rev-parse --abbrev-ref HEAD | sed "s/\//-/g")
+BRANCH := $(shell git rev-parse --abbrev-ref HEAD | sed "s/\//-/g")
 ifeq (${DOCKER_TAG},master)
-  DOCKER_TAG = latest
+  BRANCH := latest
 endif
 
 ifdef GITHUB_WORKFLOW
   # https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables
-  DOCKER_TAG = $(shell cat ${GITHUB_REF} | sed "s/ref\/heads\///g")
+  BRANCH := $(shell cat $(GITHUB_REF) | sed "s/ref\/heads\///g" | sed "s/\//-/g")
 endif
 
-DOCKER_IMAGE = ${TARGET}:${DOCKER_TAG}
+ifneq (${BRANCH},)
+  DOCKER_TAG := :${BRANCH}
+endif
+
+DOCKER_IMAGE := ${TARGET}${DOCKER_TAG}
 
 default: build
 
