@@ -24,17 +24,19 @@
 TARGET := casmlang/container.linux
 
 BRANCH := $(shell git rev-parse --abbrev-ref HEAD | sed "s/\//-/g")
-ifeq (${DOCKER_TAG},master)
-  BRANCH := latest
-endif
 
 ifdef GITHUB_WORKFLOW
   # https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables
   BRANCH := $(shell echo $(GITHUB_REF) | sed "s/refs\/heads\///g" | sed "s/\//-/g")
 endif
 
-ifneq (${BRANCH},)
-  DOCKER_TAG := :${BRANCH}
+
+ifeq (${BRANCH},master)
+  DOCKER_TAG := :latest
+else
+  ifneq (${BRANCH},)
+    DOCKER_TAG := :${BRANCH}
+  endif
 endif
 
 DOCKER_IMAGE := ${TARGET}${DOCKER_TAG}
