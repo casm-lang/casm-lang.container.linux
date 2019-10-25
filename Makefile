@@ -28,18 +28,23 @@ ifeq (${DOCKER_LABEL},master)
   DOCKER_LABEL = latest
 endif
 
-DOCKER_TAG = ${TARGET}:${DOCKER_LABEL}
+ifdef GITHUB_WORKFLOW
+  # https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables
+  DOCKER_LABEL = ${GITHUB_REF}
+endif
+
+DOCKER_IMAGE = ${TARGET}:${DOCKER_TAG}
 
 default: build
 
 build:
-	@echo "-- docker: build '${DOCKER_TAG}'"
-	docker build -t ${DOCKER_TAG} .
+	@echo "-- docker: build '${DOCKER_IMAGE}'"
+	docker build -t ${DOCKER_IMAGE} .
 
 run:
-	@echo "-- docker: run '${DOCKER_TAG}'"
-	docker run -it ${DOCKER_TAG} bash
+	@echo "-- docker: run '${DOCKER_IMAGE}'"
+	docker run -it ${DOCKER_IMAGE} bash
 
 deploy:
-	@echo "-- docker: push '${DOCKER_TAG}'"
-	docker push ${DOCKER_TAG}
+	@echo "-- docker: push '${DOCKER_IMAGE}'"
+	docker push ${DOCKER_IMAGE}
