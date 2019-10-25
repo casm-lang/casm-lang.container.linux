@@ -23,33 +23,23 @@
 
 TARGET = casmlang/container.linux
 
-DOCKER_TAG=${TARGET}:latest
+DOCKER_LABEL = $(shell git rev-parse --abbrev-ref HEAD | sed "s/\//-/g")
+ifeq (${DOCKER_LABEL},master)
+  DOCKER_LABEL = latest
+endif
 
-DOCKER_HOME   = ${HOME}/.docker
-DOCKER_CONFIG = ${DOCKER_HOME}/config.json
+DOCKER_TAG = ${TARGET}:${DOCKER_LABEL}
 
 default: build
 
 build:
-	@echo "docker: building '${DOCKER_TAG}'"
+	@echo "-- docker: build '${DOCKER_TAG}'"
 	docker build -t ${DOCKER_TAG} .
 
 run:
-	@echo "docker: running '${DOCKER_TAG}'"
+	@echo "-- docker: run '${DOCKER_TAG}'"
 	docker run -it ${DOCKER_TAG} bash
 
 deploy:
-	@echo "docker: logout, login and push '${DOCKER_TAG}'"
-	docker logout
-
-	@mkdir -p ${DOCKER_HOME}
-
-	@echo '{'                                      > ${DOCKER_CONFIG}
-	@echo '    "Username": "${DOCKER_USERNAME}",' >> ${DOCKER_CONFIG}
-	@echo '    "Secret":   "${DOCKER_PASSWORD}"'  >> ${DOCKER_CONFIG}
-	@echo '}'                                     >> ${DOCKER_CONFIG}
-
-	docker login
+	@echo "-- docker: push '${DOCKER_TAG}'"
 	docker push ${DOCKER_TAG}
-
-	@rm -f ${DOCKER_CONFIG}
