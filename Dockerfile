@@ -21,10 +21,10 @@
 #   along with casm-lang.container.linux. If not, see <http://www.gnu.org/licenses/>.
 #
 
-FROM pritunl/archlinux
+FROM oblique/archlinux-yay
 
-RUN pacman --noconfirm -Sy && \
-    pacman --noconfirm -S  \
+RUN sudo pacman --noconfirm -Syy && \
+    sudo -u aur yay --noconfirm -S \
     bash \
     git \
     make \
@@ -32,26 +32,16 @@ RUN pacman --noconfirm -Sy && \
     openssh \
     curl \
     wget \
-    tar
-
-RUN mkdir -p ~/.ssh && \
-    ssh-keyscan github.com >> ~/.ssh/known_hosts
-
-RUN pacman --noconfirm -S \
-    python
-
-RUN pacman --noconfirm -S \
+    tar \
+    python \
     bison \
-    flex
-
-RUN pacman --noconfirm -S \
-    gcc
-
-RUN pacman --noconfirm -S \
+    flex \
+    gcc \
     clang \
-    openmp
-
-RUN pacman --noconfirm -S \
-    emscripten
+    openmp \
+    emscripten \
+    z3 \
+    gtest \
+    hayai-git
 
 CMD ["/bin/bash"]

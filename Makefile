@@ -21,14 +21,34 @@
 #   along with casm-lang.container.linux. If not, see <http://www.gnu.org/licenses/>.
 #
 
-docker_builder:
-  name: build and deploy
-  only_if: $CIRRUS_BRANCH == 'master'
-  env:
-    DOCKER_TAG: casmlang/container.linux
-    DOCKER_USERNAME: ENCRYPTED[bb7ed0c753ea1c01293c90b9c7a1532f656c8f4c62ba90f6b3ab8db4bb1a6ab057d2d9db7ab746c39e6059dee2274abf]
-    DOCKER_PASSWORD: ENCRYPTED[c7740614313448b8bb5a0ab298d44cfa20ff1f7dbe3c4d38bf1915637c9aade8737975b041dc61b6e0ed52051df736c1]
-  build_script:
-    - .ci\script.sh build
-  deploy_script:
-    - .ci\script.sh deploy
+TARGET := casmlang/container.linux
+
+BRANCH := $(shell git rev-parse --abbrev-ref HEAD | sed "s/\//-/g")
+ifeq (${DOCKER_TAG},master)
+  BRANCH := latest
+endif
+
+ifdef GITHUB_WORKFLOW
+  # https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables
+  BRANCH := $(shell cat $(GITHUB_REF) | sed "s/ref\/heads\///g" | sed "s/\//-/g")
+endif
+
+ifneq (${BRANCH},)
+  DOCKER_TAG := :${BRANCH}
+endif
+
+DOCKER_IMAGE := ${TARGET}${DOCKER_TAG}
+
+default: build
+
+build:
+	@echo "-- docker: build '${DOCKER_IMAGE}'"
+	docker build -t ${DOCKER_IMAGE} .
+
+run:
+	@echo "-- docker: run '${DOCKER_IMAGE}'"
+	docker run -it ${DOCKER_IMAGE} bash
+
+deploy:
+	@echo "-- docker: push '${DOCKER_IMAGE}'"
+	docker push ${DOCKER_IMAGE}
