@@ -23,20 +23,33 @@
 
 TARGET = casmlang/container.linux
 
-TAG=${TARGET}:latest
+DOCKER_TAG=${TARGET}:latest
+
+DOCKER_HOME   = ${HOME}/.docker
+DOCKER_CONFIG = ${DOCKER_HOME}/config.json
 
 default: build
 
 build:
-	@echo "docker: building '${TAG}'"
-	@docker build -t ${TAG} .
+	@echo "docker: building '${DOCKER_TAG}'"
+	docker build -t ${DOCKER_TAG} .
 
 run:
-	@echo "docker: running '${TAG}'"
-	@docker run -it ${TAG} bash
+	@echo "docker: running '${DOCKER_TAG}'"
+	docker run -it ${DOCKER_TAG} bash
 
 deploy:
-	@echo "docker: logout, login and push '${TAG}'"
-	@docker logout
-	@echo "${DOCKER_PASSWORD}" | docker login --username ${DOCKER_USERNAME} --password-stdin
-	@docker push ${TAG}
+	@echo "docker: logout, login and push '${DOCKER_TAG}'"
+	docker logout
+
+	@mkdir -p ${DOCKER_HOME}
+
+	@echo '{'                                      > ${DOCKER_CONFIG}
+	@echo '    "Username": "${DOCKER_USERNAME}",' >> ${DOCKER_CONFIG}
+	@echo '    "Secret":   "${DOCKER_PASSWORD}"'  >> ${DOCKER_CONFIG}
+	@echo '}'                                     >> ${DOCKER_CONFIG}
+
+	docker login
+	docker push ${DOCKER_TAG}
+
+	@rm -f ${DOCKER_CONFIG}
