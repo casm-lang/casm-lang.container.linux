@@ -23,14 +23,14 @@
 
 TARGET = casmlang/container.linux
 
-DOCKER_LABEL = $(shell git rev-parse --abbrev-ref HEAD | sed "s/\//-/g")
-ifeq (${DOCKER_LABEL},master)
-  DOCKER_LABEL = latest
+DOCKER_TAG = $(shell git rev-parse --abbrev-ref HEAD | sed "s/\//-/g")
+ifeq (${DOCKER_TAG},master)
+  DOCKER_TAG = latest
 endif
 
 ifdef GITHUB_WORKFLOW
   # https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables
-  DOCKER_LABEL = ${GITHUB_REF}
+  DOCKER_TAG = $(shell cat ${GITHUB_REF} | sed "s/ref\/heads\///g")
 endif
 
 DOCKER_IMAGE = ${TARGET}:${DOCKER_TAG}
