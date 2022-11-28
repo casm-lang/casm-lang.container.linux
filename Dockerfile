@@ -23,8 +23,9 @@
 
 FROM oblique/archlinux-yay
 
-RUN sudo pacman --noconfirm -Syy \
- && sudo pacman --noconfirm -S archlinux-keyring \
+RUN sudo pacman --noconfirm -Sy archlinux-keyring \
+ && sudo pacman --noconfirm -Su \
+ && sudo pacman-key --refresh-keys \
  && sudo -u aur yay --noconfirm -S \
     bash \
     git \
