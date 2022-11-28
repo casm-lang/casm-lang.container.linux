@@ -29,6 +29,7 @@ RUN sudo pacman --noconfirm -Syy && \
     git \
     make \
     cmake \
+    ninja \
     openssh \
     curl \
     wget \
