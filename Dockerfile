@@ -21,13 +21,25 @@
 #   along with casm-lang.container.linux. If not, see <http://www.gnu.org/licenses/>.
 #
 
-FROM oblique/archlinux-yay
+FROM archlinux:base-devel
 
-RUN sudo pacman --noconfirm -Syyu \
- && sudo pacman --noconfirm -Sy archlinux-keyring \
- && sudo pacman --noconfirm -Su \
- && sudo pacman-key --refresh-keys \
- && sudo -u aur yay --noconfirm -S \
+ARG USER=aur
+RUN useradd \
+    -r \
+    -m \
+    -d /$USER \
+    -s /usr/bin/nologin \
+    -u "999" \
+    $USER \
+ && echo "$USER ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USER \
+ && pacman --noconfirm -Syu git sudo \
+ && git clone https://aur.archlinux.org/yay-bin /$USER/yay \
+ && chown -R $USER:$USER /$USER \
+ && cd /$USER/yay \
+ && sudo -u $USER makepkg --noconfirm -si \
+ && cd /$USER \
+ && rm -rf yay \
+ && sudo -u $USER yay --noconfirm -S \
     bash \
     git \
     make \
@@ -43,9 +55,11 @@ RUN sudo pacman --noconfirm -Syyu \
     gcc \
     clang \
     openmp \
-    emscripten \
     z3 \
     gtest \
-    hayai-git
+    hayai-git \
+ && sudo pacman -Scc \
+ && rm -rf /var/cache/pacman/pkg/* \
+ && sudo -u $USER yay -Ps
 
 CMD ["/bin/bash"]
